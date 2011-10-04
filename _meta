@@ -1,0 +1,21 @@
+<package project="Mer:Trunk:Base" name="python">
+  <title>An interpreted, interactive, object-oriented programming language</title>
+  <description>Python is an interpreted, interactive, object-oriented programming
+language often compared to Tcl, Perl, Scheme or Java. Python includes
+modules, classes, exceptions, very high level dynamic data types and
+dynamic typing. Python supports interfaces to many system calls and
+libraries, as well as to various windowing systems (X11, Motif, Tk,
+Mac and MFC).
+
+Programmers can write new built-in modules for Python in C or C++.
+Python can be used as an extension language for applications that need
+a programmable interface. This package contains most of the standard
+Python modules, as well as modules for interfacing to the Tix widget
+set for Tk and RPM.
+
+Note that documentation for Python is provided in the python-docs
+package.
+
+</description>
+  <url>http://www.python.org/</url>
+</package>

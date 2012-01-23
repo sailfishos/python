@@ -37,6 +37,7 @@ Patch11: python-2.5.1-codec-ascii-tolower.patch
 Patch13: python-2.5.1-socketmodule-constants.patch
 Patch14: python-2.5.1-socketmodule-constants2.patch
 Patch16: python-2.6-rpath.patch
+Patch17: python-2.6-fix-parallel-make.patch
 
 # Fix distutils to follow the Fedora/RHEL/CentOS policies of having .pyo files
 Patch51: python-2.6-distutils_rpm.patch
@@ -192,6 +193,7 @@ code that uses more than just unittest and/or test_support.py.
 %patch13 -p1 -b .socketmodule
 %patch14 -p1 -b .socketmodule2
 %patch16 -p1 -b .rpath
+%patch17 -p1 -b .fix-parallel-make
 
 %patch51 -p1 -b .brprpm
 %patch52 -p0 -b .valgrind

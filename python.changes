@@ -1,3 +1,6 @@
+* Mon Jan 23 2012 Martin Brook <martin.brook100@googlemail.com> - 2.6.4
+- added python-2.6-fix-parallel-make.patch to fix https://bugs.merproject.org/show_bug.cgi?id=34
+
 * Mon Jun 27 2011 Chris Ferron <chris.e.ferron@linux.intel.com> - 2.6.4
 - PACKAGE CLEANUP - Removed unnecessary Obsoletes and Provides of Distutils as there is no longer a package in MeeGo with that name or a package other then this package that provides the name. Since there is no package Distutils, the obsolete is no loger needed or the provides.
 

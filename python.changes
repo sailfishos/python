@@ -1,3 +1,9 @@
+* Sat Apr 14 2012 D Wadsworth <letters.random13@gmail.com> - 2.7.3
+- Fixes MER#98: Upgrade Python to 2.7
+- skip tests for sb2/qemu builds (many unexpected test crashes); but retain
+  arch-dependent (EXCLUDED_TESTS) logic (including new mipsel arch) for future native testing
+- Clean up yaml/spec files
+
 * Mon Jan 23 2012 Martin Brook <martin.brook100@googlemail.com> - 2.6.4
 - added python-2.6-fix-parallel-make.patch to fix https://bugs.merproject.org/show_bug.cgi?id=34
 

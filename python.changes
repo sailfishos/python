@@ -1,3 +1,6 @@
+* Tue Jan 22 2013 Oleg Girko <ol+mer@infoserver.ru> - 2.7.3
+- Add support for building on x86_64 architecture.
+
 * Sat Apr 14 2012 D Wadsworth <letters.random13@gmail.com> - 2.7.3
 - Fixes MER#98: Upgrade Python to 2.7
 - skip tests for sb2/qemu builds (many unexpected test crashes); but retain

@@ -223,6 +223,8 @@ test_locale \
 %ifarch x86_64
 
 ARCH_EXCLUDED="\
+test_file \
+test_file2k \
 test_io \
 test_os \
 test_posix \

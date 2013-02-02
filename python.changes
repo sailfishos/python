@@ -1,3 +1,6 @@
+* Mon Jan 28 2013 Oleg Girko <ol+mer@infoserver.ru> - 2.7.3
+- Exclude 2 more tests for x86_64 architecture.
+
 * Tue Jan 22 2013 Oleg Girko <ol+mer@infoserver.ru> - 2.7.3
 - Add support for building on x86_64 architecture.
 

@@ -20,6 +20,7 @@ Source0:    http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz
 Source100:  python.yaml
 Patch0:     cgi-py-shebang.patch
 Patch1:     Python-2.2.1-pydocnogui.patch
+Patch2:     notimestamp.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -122,6 +123,9 @@ documentation.
 %patch0 -p1
 # Python-2.2.1-pydocnogui.patch
 %patch1 -p1
+# notimestamp.patch
+%patch2 -p1
+
 # >> setup
 # << setup
 

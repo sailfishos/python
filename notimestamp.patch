@@ -1,0 +1,27 @@
+diff -ru Python-2.7.3/Modules/getbuildinfo.c Python-2.7.3-notimestamp/Modules/getbuildinfo.c
+--- Python-2.7.3/Modules/getbuildinfo.c	2012-04-10 01:07:34.000000000 +0200
++++ Python-2.7.3-notimestamp/Modules/getbuildinfo.c	2013-03-02 08:39:16.829486078 +0100
+@@ -4,21 +4,9 @@
+ #include <stdio.h>
+ #endif
+ 
+-#ifndef DATE
+-#ifdef __DATE__
+-#define DATE __DATE__
+-#else
+-#define DATE "xx/xx/xx"
+-#endif
+-#endif
++#define DATE "Mar 02 2013"
+ 
+-#ifndef TIME
+-#ifdef __TIME__
+-#define TIME __TIME__
+-#else
+-#define TIME "xx:xx:xx"
+-#endif
+-#endif
++#define TIME "12:34:56"
+ 
+ /* on unix, SVNVERSION is passed on the command line.
+  * on Windows, the string is interpolated using

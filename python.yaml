@@ -10,6 +10,7 @@ Sources:
 Patches:
     - cgi-py-shebang.patch
     - Python-2.2.1-pydocnogui.patch
+    - notimestamp.patch
 Description: |
     Python is an interpreted, interactive, object-oriented programming
     language often compared to Tcl, Perl, Scheme or Java. Python includes

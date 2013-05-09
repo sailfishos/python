@@ -1,6 +1,5 @@
-diff -ru Python-2.7.3/Modules/getbuildinfo.c Python-2.7.3-notimestamp/Modules/getbuildinfo.c
---- Python-2.7.3/Modules/getbuildinfo.c	2012-04-10 01:07:34.000000000 +0200
-+++ Python-2.7.3-notimestamp/Modules/getbuildinfo.c	2013-03-02 08:39:16.829486078 +0100
+--- Python-2.7.4/Modules/getbuildinfo.c	2013-04-06 07:02:37.000000000 -0700
++++ Python-2.7.4-notimestamp/Modules/getbuildinfo.c	2013-05-09 11:04:08.960671214 -0700
 @@ -4,21 +4,9 @@
  #include <stdio.h>
  #endif
@@ -12,7 +11,7 @@ diff -ru Python-2.7.3/Modules/getbuildinfo.c Python-2.7.3-notimestamp/Modules/ge
 -#define DATE "xx/xx/xx"
 -#endif
 -#endif
-+#define DATE "Mar 02 2013"
++#define DATE "May 09 2013"
  
 -#ifndef TIME
 -#ifdef __TIME__

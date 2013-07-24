@@ -1,3 +1,6 @@
+* Wed Jul 24 2013 Carsten Munk <carsten.munk@jollamobile.com> - 2.7.5
+- Don't package dl and imageop on x86_64, doesn't get built for it.
+
 * Fri May 16 2013 D Wadsworth <letters.random13@gmail.com> - 2.7.5
 - Fixes MER#721: update python to 2.7.5 (quick bugfix release for 2.7.4)
 

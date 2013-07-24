@@ -365,12 +365,16 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/crypt.so
 %{dynload_dir}/datetime.so
 %{dynload_dir}/dbm.so
+%ifnarch x86_64
 %{dynload_dir}/dl.so
+%endif
 %{dynload_dir}/fcntl.so
 %{dynload_dir}/future_builtins.so
 %{dynload_dir}/gdbm.so
 %{dynload_dir}/grp.so
+%ifnarch x86_64
 %{dynload_dir}/imageop.so
+%endif
 %{dynload_dir}/itertools.so
 %{dynload_dir}/linuxaudiodev.so
 %{dynload_dir}/math.so

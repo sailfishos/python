@@ -1,3 +1,7 @@
+* Wed Dec 04 2013 D Wadsworth <letters.random13@gmail.com> - 2.7.6
+- Update python to 2.7.6
+- Hack Jul 24 2013 fix to make compatible with specify
+
 * Wed Jul 24 2013 Carsten Munk <carsten.munk@jollamobile.com> - 2.7.5
 - Don't package dl and imageop on x86_64, doesn't get built for it.
 

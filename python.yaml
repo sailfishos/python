@@ -1,12 +1,12 @@
 Name: python
 Summary: An interpreted, interactive, object-oriented programming language
-Version: 2.7.5
+Version: 2.7.6
 Release: 1
 Group: Development/Languages
 License: Python
 URL: http://www.python.org/
 Sources:
-    - http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+    - http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 Patches:
     - cgi-py-shebang.patch
     - Python-2.2.1-pydocnogui.patch
@@ -42,8 +42,15 @@ PkgBR:
     - pkgconfig
     - readline-devel
     - tar
+Obsoletes:
+    - python2 < %{version}
+    - python-base < %{version}
 Provides:
+    #rpmlint wants python-base (used as a Require by subpkgs)
+    - python2 = %{version}
     - python-abi = %{pybasever}
+    - python-base = %{version}
+SetupOptions: -q -n Python-%{version}
 Configure: configure
 ConfigOptions:
     - --enable-ipv6
@@ -52,7 +59,6 @@ ConfigOptions:
     - --with-system-ffi
 Builder: make
 Files:
-    - "%defattr(-, root, root, -)"
     - "%doc LICENSE README"
     - "%{_bindir}/pydoc"
     - "%{_bindir}/python"
@@ -69,13 +75,19 @@ SubPackages:
           - the libpython dynamic library, for use by applications that embed Python as
           a scripting language, and by the main "python" executable
           - the Python standard library
+      #rpmlint wants requires: python-base 
+      #specify just adds requires: name = release-version
+      Obsoletes:
+          - python2-libs < %{version}
+      Provides:
+          - python2-libs = %{version}
+
       Files:
-          - "%defattr(-, root, root, -)"
+          - "%doc LICENSE README"
           - "%dir %{pylibdir}"
           - "%dir %{dynload_dir}"
           - "%{dynload_dir}/Python-%{version}-py%{pybasever}.egg-info"
-          - "#warning, hardwired SOVERSION 1.0"
-          - "%{_libdir}/libpython%{pybasever}.so.1.0"
+          - "%{_libdir}/libpython%{pybasever}.so.%{soversion}"
           -
           - "#this list is from the stdout of rpmbuild -bl ('provides...' section)."
           - "#note the 'module' disappeared from some names 2.7.1 to 2.7.2(?)."
@@ -118,12 +130,11 @@ SubPackages:
           - "%{dynload_dir}/crypt.so"
           - "%{dynload_dir}/datetime.so"
           - "%{dynload_dir}/dbm.so"
-          - "%{dynload_dir}/dl.so"
+          - "#dl.so, etc.: note hack for ifnarch (see spec files libs section)"
           - "%{dynload_dir}/fcntl.so"
           - "%{dynload_dir}/future_builtins.so"
           - "%{dynload_dir}/gdbm.so"
           - "%{dynload_dir}/grp.so"
-          - "%{dynload_dir}/imageop.so"
           - "%{dynload_dir}/itertools.so"
           - "%{dynload_dir}/linuxaudiodev.so"
           - "%{dynload_dir}/math.so"
@@ -203,9 +214,11 @@ SubPackages:
 
           You might want to install the python-test package if you're developing python
           code that uses more than just unittest and/or test_support.py.
+      Obsoletes:
+          - python2-test < %{version}
+      Provides:
+          - python2-test = %{version}
       Files:
-          - "%defattr(-, root, root, -)"
-          -
           - "%{pylibdir}/bsddb/test"
           - "%{pylibdir}/ctypes/test"
           - "%{pylibdir}/distutils/tests"
@@ -226,12 +239,11 @@ SubPackages:
           This package includes several tools to help with the development of Python
           programs, including IDLE (an IDE with editing and debugging facilities), a
           color editor (pynche), and a python gettext program (pygettext.py).
-      Provides:
-          - python2-tools = %{version}
       Obsoletes:
           - python2-tools < %{version}
+      Provides:
+          - python2-tools = %{version}
       Files:
-          - "%defattr(-, root, root, 755)"
           - "%{_bindir}/2to3"
           - "#no tkinter -> no idle?"
           - "%exclude %{_bindir}/idle"
@@ -250,10 +262,10 @@ SubPackages:
           python package will also need to be installed.  You'll probably also
           want to install the python-docs package, which contains Python
           documentation.
-      Provides:
-          - python2-devel = %{version}-%{release}
       Obsoletes:
-          - python2-devel < %{version}-%{release}
+          - python2-devel < %{version}
+      Provides:
+          - python2-devel = %{version}
       Files:
           - "%{_libdir}/pkgconfig/python-%{pybasever}.pc"
           - "%{_libdir}/pkgconfig/python2.pc"

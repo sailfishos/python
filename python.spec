@@ -10,15 +10,16 @@ Name:       python
 %global pybasever 2.7
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
+%global soversion 1.0
 # << macros
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.5
+Version:    2.7.6
 Release:    1
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
-Source0:    http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+Source0:    http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 Source100:  python.yaml
 Patch0:     cgi-py-shebang.patch
 Patch1:     Python-2.2.1-pydocnogui.patch
@@ -36,7 +37,11 @@ BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  readline-devel
 BuildRequires:  tar
+Provides:   python2 = %{version}
 Provides:   python-abi = %{pybasever}
+Provides:   python-base = %{version}
+Obsoletes:   python2 < %{version}
+Obsoletes:   python-base < %{version}
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -61,6 +66,8 @@ Group:      Applications/System
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+Provides:   python2-libs = %{version}
+Obsoletes:  python2-libs < %{version}
 
 %description libs
 This package contains runtime libraries for use by Python:
@@ -73,6 +80,8 @@ a scripting language, and by the main "python" executable
 Summary:    The test modules from the main python package
 Group:      Development/Languages
 Requires:   %{name} = %{version}-%{release}
+Provides:   python2-test = %{version}
+Obsoletes:  python2-test < %{version}
 
 %description test
 The test modules from the main python package: %{name}
@@ -100,8 +109,8 @@ color editor (pynche), and a python gettext program (pygettext.py).
 Summary:    The libraries and header files needed for Python development
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
-Provides:   python2-devel = %{version}-%{release}
-Obsoletes:  python2-devel < %{version}-%{release}
+Provides:   python2-devel = %{version}
+Obsoletes:  python2-devel < %{version}
 
 %description devel
 The Python programming language's interpreter can be extended with
@@ -280,23 +289,22 @@ rm -f %{buildroot}%{pylibdir}/*.egg-info
 #set some links
 ln -s ../../libpython%{pybasever}.so %{buildroot}%{pylibdir}/config/libpython%{pybasever}.so
 
-# python's build is stupid and doesn't fail if extensions fail to build
-# let's list a few that we care about...
-# ?
-for so in _bsddb.so _ctypes.so _curses.so _elementtree.so _sqlite3.so _ssl.so readline.so _hashlib.so zlib.so bz2.so pyexpat.so; do
-if [ ! -f %{buildroot}/%{dynload_dir}/$so ]; then
-echo %{buildroot}/%{dynload_dir}
-/bin/ls -l %{buildroot}/%{dynload_dir}
-echo "Missing $so!!!"
-exit 1
-fi
-done
-
-#meego does not support tk (regardless of what pkg description says)?
+#mer does not support tk (historical reason: meego didn't)
+#TODO: rm everything tk related (incl idle-related?)
 rm -rf %{buildroot}%{pylibdir}/lib-tk
 
 #we already have a LICENSE file elsewhere
 rm -f %{buildroot}%{pylibdir}/LICENSE.txt
+
+#TODO:
+#rpmlint warnings (executable bits), e.g.:
+#find -name '*.py' -exec if doesn't have +x perm && if has shebang: remove shebang
+#find -name '*.py' -exec if doesn't have shebang: remove +x perm
+
+#[not reported by rpmlint]
+#some files / suffixes(?) incorrectly have perm +x
+#.xbm, .xpm
+#these are tk-related demos?
 
 # << install post
 
@@ -306,7 +314,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
 %files
 %defattr(-,root,root,-)
-%defattr(-, root, root, -)
 %doc LICENSE README
 %{_bindir}/pydoc
 %{_bindir}/python
@@ -318,12 +325,11 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
 %files libs
 %defattr(-,root,root,-)
-%defattr(-, root, root, -)
+%doc LICENSE README
 %dir %{pylibdir}
 %dir %{dynload_dir}
 %{dynload_dir}/Python-%{version}-py%{pybasever}.egg-info
-#warning, hardwired SOVERSION 1.0
-%{_libdir}/libpython%{pybasever}.so.1.0
+%{_libdir}/libpython%{pybasever}.so.%{soversion}
 #this list is from the stdout of rpmbuild -bl ('provides...' section).
 #note the 'module' disappeared from some names 2.7.1 to 2.7.2(?).
 %{dynload_dir}/_bisect.so
@@ -365,16 +371,11 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/crypt.so
 %{dynload_dir}/datetime.so
 %{dynload_dir}/dbm.so
-%ifnarch x86_64
-%{dynload_dir}/dl.so
-%endif
+#dl.so, etc.: note hack for ifnarch (see spec files libs section)
 %{dynload_dir}/fcntl.so
 %{dynload_dir}/future_builtins.so
 %{dynload_dir}/gdbm.so
 %{dynload_dir}/grp.so
-%ifnarch x86_64
-%{dynload_dir}/imageop.so
-%endif
 %{dynload_dir}/itertools.so
 %{dynload_dir}/linuxaudiodev.so
 %{dynload_dir}/math.so
@@ -440,11 +441,15 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 #note: this config.h might only support 32 bit arch?
 %{_includedir}/python%{pybasever}/pyconfig.h
 # >> files libs
+#workaround for Jul 24 2013 Change I28c73a26 (hack for specify-compatible)
+%ifnarch x86_64
+%{dynload_dir}/dl.so
+%{dynload_dir}/imageop.so
+%endif
 # << files libs
 
 %files test
 %defattr(-,root,root,-)
-%defattr(-, root, root, -)
 %{pylibdir}/bsddb/test
 %{pylibdir}/ctypes/test
 %{pylibdir}/distutils/tests
@@ -462,7 +467,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
 %files tools
 %defattr(-,root,root,-)
-%defattr(-, root, root, 755)
 %{_bindir}/2to3
 #no tkinter -> no idle?
 %exclude %{_bindir}/idle

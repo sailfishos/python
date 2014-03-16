@@ -1,3 +1,6 @@
+* Sun Mar 16 2014 Islam Amer <islam.amer@jollamobile.com> - 2.7.6
+- Cherry pick fix from http://bugs.python.org/issue20901 to fix build against new sqlite
+
 * Wed Dec 04 2013 D Wadsworth <letters.random13@gmail.com> - 2.7.6
 - Update python to 2.7.6
 - Hack Jul 24 2013 fix to make compatible with specify

@@ -14,7 +14,7 @@ Name:       python
 # << macros
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.6
+Version:    2.7.7
 Release:    1
 Group:      Development/Languages
 License:    Python
@@ -24,7 +24,6 @@ Source100:  python.yaml
 Patch0:     cgi-py-shebang.patch
 Patch1:     Python-2.2.1-pydocnogui.patch
 Patch2:     notimestamp.patch
-Patch3:     fix-test-sqlite.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -134,8 +133,6 @@ documentation.
 %patch1 -p1
 # notimestamp.patch
 %patch2 -p1
-# fix-test-sqlite.patch
-%patch3 -p1
 # >> setup
 # << setup
 

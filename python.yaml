@@ -1,6 +1,6 @@
 Name: python
 Summary: An interpreted, interactive, object-oriented programming language
-Version: 2.7.6
+Version: 2.7.7
 Release: 1
 Group: Development/Languages
 License: Python
@@ -11,7 +11,6 @@ Patches:
     - cgi-py-shebang.patch
     - Python-2.2.1-pydocnogui.patch
     - notimestamp.patch
-    - fix-test-sqlite.patch
 Description: |
     Python is an interpreted, interactive, object-oriented programming
     language often compared to Tcl, Perl, Scheme or Java. Python includes

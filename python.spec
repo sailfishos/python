@@ -442,7 +442,7 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{_includedir}/python%{pybasever}/pyconfig.h
 # >> files libs
 #workaround for Jul 24 2013 Change I28c73a26 (hack for specify-compatible)
-%ifnarch x86_64
+%ifnarch x86_64 aarch64
 %{dynload_dir}/dl.so
 %{dynload_dir}/imageop.so
 %endif

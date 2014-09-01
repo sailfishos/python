@@ -1,3 +1,6 @@
+* Mon Sep 1 2014 Davide Bettio <davide.bettio@ispirata.com> - 2.7.6
+- Don't package dl and imageop on aarch64 too, doesn't get built for it.
+
 * Wed Dec 04 2013 D Wadsworth <letters.random13@gmail.com> - 2.7.6
 - Update python to 2.7.6
 - Hack Jul 24 2013 fix to make compatible with specify

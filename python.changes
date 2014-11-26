@@ -1,5 +1,11 @@
+* Wed Nov 26 Carsten Munk <carsten.munk@jollamobile.com> - 2.7.7
+- Changelog entry to show we're now at 2.7.7.
+
 * Mon Sep 1 2014 Davide Bettio <davide.bettio@ispirata.com> - 2.7.6
 - Don't package dl and imageop on aarch64 too, doesn't get built for it.
+
+* Sun Mar 16 2014 Islam Amer <islam.amer@jollamobile.com> - 2.7.6
+- Cherry pick fix from http://bugs.python.org/issue20901 to fix build against new sqlite
 
 * Wed Dec 04 2013 D Wadsworth <letters.random13@gmail.com> - 2.7.6
 - Update python to 2.7.6

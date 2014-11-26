@@ -14,7 +14,7 @@ Name:       python
 # << macros
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.6
+Version:    2.7.7
 Release:    1
 Group:      Development/Languages
 License:    Python

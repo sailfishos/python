@@ -5,6 +5,7 @@ Name:       python
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
+%global pyversion %{pybasever}.9
 
 Summary:    An interpreted, interactive, object-oriented programming language
 Version:    2.7.9
@@ -12,7 +13,7 @@ Release:    1
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
-Source0:    http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
+Source0:    python-%{version}.tar.xz
 Patch0:     cgi-py-shebang.patch
 Patch2:     notimestamp.patch
 BuildRequires:  pkgconfig(libffi)
@@ -116,7 +117,7 @@ documentation.
 
 
 %prep
-%setup -q -n Python-%{version}
+%setup -q -n python-%{version}
 
 # cgi-py-shebang.patch
 %patch0 -p1
@@ -131,6 +132,10 @@ export CC=gcc
     --enable-unicode=ucs4 \
     --enable-shared \
     --with-system-ffi
+
+# Due to tar_git, we have to touch these files, otherwise make tries to rebuild
+# them, and that fails, because rebuilding requires Python installed.
+touch Include/Python-ast.h Python/Python-ast.c
 
 make %{?jobs:-j%jobs}
 
@@ -300,7 +305,7 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %doc LICENSE README
 %dir %{pylibdir}
 %dir %{dynload_dir}
-%{dynload_dir}/Python-%{version}-py%{pybasever}.egg-info
+%{dynload_dir}/Python-%{pyversion}-py%{pybasever}.egg-info
 %{_libdir}/libpython%{pybasever}.so.%{soversion}
 #this list is from the stdout of rpmbuild -bl ('provides...' section).
 #note the 'module' disappeared from some names 2.7.1 to 2.7.2(?).

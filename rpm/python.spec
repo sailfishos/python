@@ -14,6 +14,7 @@ Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
 Source0:    python-%{version}.tar.xz
+Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
 Patch2:     notimestamp.patch
 BuildRequires:  pkgconfig(libffi)

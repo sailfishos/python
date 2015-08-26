@@ -9,7 +9,7 @@ Name:       python
 
 Summary:    An interpreted, interactive, object-oriented programming language
 Version:    2.7.9
-Release:    1
+Release:    4
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
@@ -17,6 +17,7 @@ Source0:    python-%{version}.tar.xz
 Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
 Patch2:     notimestamp.patch
+Patch3:     alter-tests-to-reflect-sslv3-disabled.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -124,6 +125,8 @@ documentation.
 %patch0 -p1
 # notimestamp.patch
 %patch2 -p1
+# alter-tests-to-reflect-sslv3-disabled.patch
+%patch3 -p1
 
 %build
 export CC=gcc

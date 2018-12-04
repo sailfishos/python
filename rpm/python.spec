@@ -13,11 +13,12 @@ Release:    4
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
-Source0:    python-%{version}.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
 Patch2:     notimestamp.patch
 Patch3:     alter-tests-to-reflect-sslv3-disabled.patch
+Patch4:     replace-512-bit-dh-key-with-a-2014-bit-one.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -119,7 +120,7 @@ documentation.
 
 
 %prep
-%setup -q -n python-%{version}
+%setup -q -n %{name}-%{version}/upstream
 
 # cgi-py-shebang.patch
 %patch0 -p1
@@ -127,6 +128,8 @@ documentation.
 %patch2 -p1
 # alter-tests-to-reflect-sslv3-disabled.patch
 %patch3 -p1
+# replace-512-bit-dh-key-with-a-2014-bit-one.patch
+%patch4 -p1
 
 %build
 export CC=gcc

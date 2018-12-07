@@ -5,20 +5,19 @@ Name:       python
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
-%global pyversion %{pybasever}.9
+%global pyversion %{pybasever}.15
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.9
-Release:    4
+Version:    2.7.15
+Release:    1
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
 Source0:    %{name}-%{version}.tar.xz
 Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
-Patch2:     notimestamp.patch
-Patch3:     alter-tests-to-reflect-sslv3-disabled.patch
-Patch4:     replace-512-bit-dh-key-with-a-2014-bit-one.patch
+Patch1:     notimestamp.patch
+Patch2:     Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -125,11 +124,9 @@ documentation.
 # cgi-py-shebang.patch
 %patch0 -p1
 # notimestamp.patch
+%patch1 -p1
+# Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 %patch2 -p1
-# alter-tests-to-reflect-sslv3-disabled.patch
-%patch3 -p1
-# replace-512-bit-dh-key-with-a-2014-bit-one.patch
-%patch4 -p1
 
 %build
 export CC=gcc
@@ -180,6 +177,9 @@ test_mmap \
 test_multiprocessing \
 test_posix \
 test_threading \
+test_asyncore \
+test_test_support \
+test_runpy \
 %{nil}"
 
 %ifarch %{arm}

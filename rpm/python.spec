@@ -113,9 +113,16 @@ This package contains the header files and libraries needed to do
 these types of tasks.
 
 Install python-devel if you want to develop Python extensions.  The
-python package will also need to be installed.  You'll probably also
-want to install the python-docs package, which contains Python
-documentation.
+python package will also need to be installed.
+
+
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  python2 = %{version}-%{release}
+
+%description doc
+This package provides man pages for %{name}.
 
 
 %prep
@@ -300,16 +307,19 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README
+%license LICENSE
 %{_bindir}/pydoc
 %{_bindir}/python
 %{_bindir}/python2
 %{_bindir}/python%{pybasever}
+
+%files doc
+%doc README
+%doc %{pylibdir}/pdb.doc
 %{_mandir}/*/*
 
 %files libs
 %defattr(-,root,root,-)
-%doc LICENSE README
 %dir %{pylibdir}
 %dir %{dynload_dir}
 %{dynload_dir}/Python-%{pyversion}-py%{pybasever}.egg-info
@@ -384,7 +394,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{pylibdir}/*.py*
 %dir %{pylibdir}/bsddb
 %{pylibdir}/bsddb/*.py*
-%{pylibdir}/pdb.doc
 %{pylibdir}/compiler
 %dir %{pylibdir}/ctypes
 %{pylibdir}/ctypes/*.py*

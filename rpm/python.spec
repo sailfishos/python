@@ -5,19 +5,19 @@ Name:       python
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
-%global pyversion %{pybasever}.9
+%global pyversion %{pybasever}.15
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.9
-Release:    4
+Version:    2.7.15
+Release:    1
 Group:      Development/Languages
 License:    Python
 URL:        http://www.python.org/
-Source0:    python-%{version}.tar.xz
+Source0:    %{name}-%{version}.tar.xz
 Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
-Patch2:     notimestamp.patch
-Patch3:     alter-tests-to-reflect-sslv3-disabled.patch
+Patch1:     notimestamp.patch
+Patch2:     Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -113,20 +113,27 @@ This package contains the header files and libraries needed to do
 these types of tasks.
 
 Install python-devel if you want to develop Python extensions.  The
-python package will also need to be installed.  You'll probably also
-want to install the python-docs package, which contains Python
-documentation.
+python package will also need to be installed.
+
+
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  python2 = %{version}-%{release}
+
+%description doc
+This package provides man pages for %{name}.
 
 
 %prep
-%setup -q -n python-%{version}
+%setup -q -n %{name}-%{version}/upstream
 
 # cgi-py-shebang.patch
 %patch0 -p1
 # notimestamp.patch
+%patch1 -p1
+# Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 %patch2 -p1
-# alter-tests-to-reflect-sslv3-disabled.patch
-%patch3 -p1
 
 %build
 export CC=gcc
@@ -177,6 +184,9 @@ test_mmap \
 test_multiprocessing \
 test_posix \
 test_threading \
+test_asyncore \
+test_test_support \
+test_runpy \
 %{nil}"
 
 %ifarch %{arm}
@@ -297,16 +307,19 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README
+%license LICENSE
 %{_bindir}/pydoc
 %{_bindir}/python
 %{_bindir}/python2
 %{_bindir}/python%{pybasever}
+
+%files doc
+%doc README
+%doc %{pylibdir}/pdb.doc
 %{_mandir}/*/*
 
 %files libs
 %defattr(-,root,root,-)
-%doc LICENSE README
 %dir %{pylibdir}
 %dir %{dynload_dir}
 %{dynload_dir}/Python-%{pyversion}-py%{pybasever}.egg-info
@@ -381,7 +394,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{pylibdir}/*.py*
 %dir %{pylibdir}/bsddb
 %{pylibdir}/bsddb/*.py*
-%{pylibdir}/pdb.doc
 %{pylibdir}/compiler
 %dir %{pylibdir}/ctypes
 %{pylibdir}/ctypes/*.py*

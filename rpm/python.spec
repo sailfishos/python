@@ -18,6 +18,7 @@ Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
 Patch1:     notimestamp.patch
 Patch2:     Fix-test_ssl-when-a-filename-cannot-be-enc.patch
+Patch3:     disable_modules.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -134,6 +135,8 @@ This package provides man pages for %{name}.
 %patch1 -p1
 # Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 %patch2 -p1
+# disable_modules.patch
+%patch3 -p1
 
 %build
 export CC=gcc
@@ -374,7 +377,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/linuxaudiodev.so
 %{dynload_dir}/math.so
 %{dynload_dir}/mmap.so
-%{dynload_dir}/nis.so
 %{dynload_dir}/operator.so
 %{dynload_dir}/ossaudiodev.so
 %{dynload_dir}/parser.so

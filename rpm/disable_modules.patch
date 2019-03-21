@@ -1,0 +1,19 @@
+Disable modules that are not used.
+
+nis was disabled because it no longer builds on glibc 2.27 and it is not
+needed anyway. tkinter and bsddb185 don't build because of missing
+dependencies.
+---
+diff --git a/setup.py b/setup.py
+index 33cecc6875..15d6f90817 100644
+--- a/setup.py
++++ b/setup.py
+@@ -33,7 +33,7 @@ host_platform = get_platform()
+ COMPILED_WITH_PYDEBUG = ('--with-pydebug' in sysconfig.get_config_var("CONFIG_ARGS"))
+ 
+ # This global variable is used to hold the list of modules to be disabled.
+-disabled_module_list = []
++disabled_module_list = ['_tkinter', 'bsddb185', 'nis']
+ 
+ def add_dir_to_list(dirlist, dir):
+     """Add the directory 'dir' to the list 'dirlist' (at the front) if

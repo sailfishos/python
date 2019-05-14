@@ -27,7 +27,6 @@ BuildRequires:  bzip2
 BuildRequires:  bzip2-devel
 BuildRequires:  db4-devel >= 4.8
 BuildRequires:  gcc
-BuildRequires:  gdbm-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  readline-devel
@@ -141,11 +140,12 @@ This package provides man pages for %{name}.
 %build
 export CC=gcc
 
-%configure --disable-static \
+%configure \
     --enable-ipv6 \
     --enable-unicode=ucs4 \
     --enable-shared \
-    --with-system-ffi
+    --with-system-ffi \
+    --with-dbmliborder=bdb
 
 # Due to tar_git, we have to touch these files, otherwise make tries to rebuild
 # them, and that fails, because rebuilding requires Python installed.
@@ -371,7 +371,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 #dl.so, etc.: note hack for ifnarch (see spec files libs section)
 %{dynload_dir}/fcntl.so
 %{dynload_dir}/future_builtins.so
-%{dynload_dir}/gdbm.so
 %{dynload_dir}/grp.so
 %{dynload_dir}/itertools.so
 %{dynload_dir}/linuxaudiodev.so

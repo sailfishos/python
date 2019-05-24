@@ -29,7 +29,6 @@ BuildRequires:  db4-devel >= 4.8
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig
-BuildRequires:  readline-devel
 BuildRequires:  tar
 Provides:   python2 = %{version}
 Provides:   python-abi = %{pybasever}
@@ -380,7 +379,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/ossaudiodev.so
 %{dynload_dir}/parser.so
 %{dynload_dir}/pyexpat.so
-%{dynload_dir}/readline.so
 %{dynload_dir}/resource.so
 %{dynload_dir}/select.so
 %{dynload_dir}/spwd.so

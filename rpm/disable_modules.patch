@@ -2,7 +2,7 @@ Disable modules that are not used.
 
 nis was disabled because it no longer builds on glibc 2.27 and it is not
 needed anyway. tkinter and bsddb185 don't build because of missing
-dependencies.
+dependencies. sqlite3 is disabled in order to ease bootstrapping
 ---
 diff --git a/setup.py b/setup.py
 index 33cecc6875..15d6f90817 100644
@@ -13,7 +13,7 @@ index 33cecc6875..15d6f90817 100644
  
  # This global variable is used to hold the list of modules to be disabled.
 -disabled_module_list = []
-+disabled_module_list = ['_tkinter', 'bsddb185', 'nis', 'readline']
++disabled_module_list = ['_tkinter', 'bsddb185', 'nis', 'readline', 'sqlite3']
  
  def add_dir_to_list(dirlist, dir):
      """Add the directory 'dir' to the list 'dirlist' (at the front) if

@@ -1,4 +1,4 @@
 [submodule "upstream"]
 	path = upstream
-	url = https://github.com/python/cpython/
+	url = https://git.sailfishos.org/mirror/cpython/
 	branch = 2.7

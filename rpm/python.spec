@@ -19,10 +19,10 @@ Patch0:     cgi-py-shebang.patch
 Patch1:     notimestamp.patch
 Patch2:     Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 Patch3:     disable_modules.patch
+Patch4:     0001-Disable-sqlite3-module.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  bzip2
 BuildRequires:  bzip2-devel
 BuildRequires:  db4-devel >= 4.8
@@ -135,6 +135,8 @@ This package provides man pages for %{name}.
 %patch2 -p1
 # disable_modules.patch
 %patch3 -p1
+# disable sqlite3 module
+%patch4 -p1
 
 %build
 export CC=gcc
@@ -354,7 +356,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/_multiprocessing.so
 %{dynload_dir}/_random.so
 %{dynload_dir}/_socket.so
-%{dynload_dir}/_sqlite3.so
 %{dynload_dir}/_ssl.so
 %{dynload_dir}/_struct.so
 %{dynload_dir}/array.so
@@ -419,8 +420,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{pylibdir}/multiprocessing
 %{pylibdir}/plat-linux2
 %{pylibdir}/pydoc_data
-%dir %{pylibdir}/sqlite3
-%{pylibdir}/sqlite3/*.py*
 #see -tests pkg for others
 %dir %{pylibdir}/test
 %{pylibdir}/test/test_support.py*
@@ -446,7 +445,6 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{pylibdir}/distutils/tests
 %{pylibdir}/email/test
 %{pylibdir}/json/tests
-%{pylibdir}/sqlite3/test
 %{pylibdir}/test/*
 # These two are shipped in the main package:
 %exclude %{pylibdir}/test/test_support.py*

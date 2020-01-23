@@ -5,10 +5,10 @@ Name:       python
 %global pylibdir %{_libdir}/python%{pybasever}
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
-%global pyversion %{pybasever}.15
+%global pyversion %{pybasever}.17
 
 Summary:    An interpreted, interactive, object-oriented programming language
-Version:    2.7.15
+Version:    2.7.17
 Release:    1
 Group:      Development/Languages
 License:    Python
@@ -17,7 +17,6 @@ Source0:    %{name}-%{version}.tar.xz
 Source1:    python-rpmlintrc
 Patch0:     cgi-py-shebang.patch
 Patch1:     notimestamp.patch
-Patch2:     Fix-test_ssl-when-a-filename-cannot-be-enc.patch
 Patch3:     disable_modules.patch
 Patch4:     0001-Disable-sqlite3-module.patch
 BuildRequires:  pkgconfig(libffi)
@@ -131,8 +130,6 @@ This package provides man pages for %{name}.
 %patch0 -p1
 # notimestamp.patch
 %patch1 -p1
-# Fix-test_ssl-when-a-filename-cannot-be-enc.patch
-%patch2 -p1
 # disable_modules.patch
 %patch3 -p1
 # disable sqlite3 module
@@ -215,6 +212,7 @@ test_pty \
 test_strtod \
 test_sys \
 test_uuid \
+test_bdb \
 %{nil}"
 
 %endif
@@ -234,6 +232,7 @@ ARCH_EXCLUDED="\
 test_file \
 test_file2k \
 test_locale \
+test_bdb \
 %{nil}"
 
 %endif
@@ -246,6 +245,7 @@ test_file2k \
 test_io \
 test_os \
 test_posix \
+test_bdb \
 %{nil}"
 
 %endif

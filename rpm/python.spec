@@ -101,6 +101,10 @@ color editor (pynche), and a python gettext program (pygettext.py).
 Summary:    The libraries and header files needed for Python development
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
+# The RPM related dependencies bring nothing to a non-RPM Python developer
+# But we want them when packages BuildRequire python2-devel
+Requires:   (python-rpm-macros if rpm-build)
+Requires:   (python2-rpm-macros if rpm-build)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1410631
 Requires:   (python3-rpm-generators if rpm-build)
 Provides:   python2-devel = %{version}

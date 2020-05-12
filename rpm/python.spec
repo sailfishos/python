@@ -29,6 +29,9 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  tar
+# The RPM related dependencies bring nothing when building main python
+# project, that is why we need to explicitly depend rpm generators
+BuildRequires:  python3-rpm-generators
 Provides:   python2 = %{version}
 Provides:   python-abi = %{pybasever}
 Provides:   python-base = %{version}

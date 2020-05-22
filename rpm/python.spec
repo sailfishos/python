@@ -6,6 +6,10 @@ Name:       python
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
 %global pyversion %{pybasever}.17
+# Disable automatic bytecompilation. The python2.7 binary is not yet
+# available in /usr/bin when Python is built. Also, the bytecompilation fails
+# on files that test invalid syntax.
+%global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 
 Summary:    An interpreted, interactive, object-oriented programming language
 Version:    2.7.17
@@ -56,7 +60,6 @@ Python modules.
 
 This package provides the "python" executable; most of the actual
 implementation is within the "python-libs" package.
-
 
 %package libs
 Summary:    Runtime libraries for Python

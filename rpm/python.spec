@@ -317,6 +317,11 @@ rm -rf %{buildroot}%{pylibdir}/lib-tk
 #we already have a LICENSE file elsewhere
 rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
+# Python should own /usr/lib/python2.x on 64-bit machines
+%if "%{_lib}" == "lib64"
+install -d %{buildroot}/%{_prefix}/lib/python%{pybasever}/site-packages
+%endif
+
 #TODO:
 #rpmlint warnings (executable bits), e.g.:
 #find -name '*.py' -exec if doesn't have +x perm && if has shebang: remove shebang
@@ -412,6 +417,10 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/unicodedata.so
 %{dynload_dir}/zlib.so
 %dir %{pylibdir}/site-packages
+%if "%{_lib}" == "lib64"
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/site-packages
+%endif
 %{pylibdir}/site-packages/README
 %{pylibdir}/*.py*
 %dir %{pylibdir}/bsddb

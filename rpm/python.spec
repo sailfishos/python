@@ -19,6 +19,9 @@ Patch0:     cgi-py-shebang.patch
 Patch1:     notimestamp.patch
 Patch3:     disable_modules.patch
 Patch4:     0001-Disable-sqlite3-module.patch
+Patch5:     0002-Fix-lib64-for-multilib.patch
+Patch6:     0003-Fix-sysconfig-for-multilib.patch
+Patch7:     0004-Fix-test-installation-for-multilib.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -143,6 +146,13 @@ This package provides man pages for %{name}.
 %patch3 -p1
 # disable sqlite3 module
 %patch4 -p1
+
+# multilib support
+%if "%{_lib}" == "lib64"
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%endif
 
 %build
 export CC=gcc

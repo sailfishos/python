@@ -6,6 +6,10 @@ Name:       python
 %global dynload_dir %{pylibdir}/lib-dynload
 %global soversion 1.0
 %global pyversion %{pybasever}.17
+# Disable automatic bytecompilation. The python2.7 binary is not yet
+# available in /usr/bin when Python is built. Also, the bytecompilation fails
+# on files that test invalid syntax.
+%global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 
 Summary:    An interpreted, interactive, object-oriented programming language
 Version:    2.7.17
@@ -19,6 +23,9 @@ Patch0:     cgi-py-shebang.patch
 Patch1:     notimestamp.patch
 Patch3:     disable_modules.patch
 Patch4:     0001-Disable-sqlite3-module.patch
+Patch5:     0002-Fix-lib64-for-multilib.patch
+Patch6:     0003-Fix-sysconfig-for-multilib.patch
+Patch7:     0004-Fix-test-installation-for-multilib.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
@@ -53,7 +60,6 @@ Python modules.
 
 This package provides the "python" executable; most of the actual
 implementation is within the "python-libs" package.
-
 
 %package libs
 Summary:    Runtime libraries for Python
@@ -143,6 +149,13 @@ This package provides man pages for %{name}.
 %patch3 -p1
 # disable sqlite3 module
 %patch4 -p1
+
+# multilib support
+%if "%{_lib}" == "lib64"
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%endif
 
 %build
 export CC=gcc
@@ -304,6 +317,11 @@ rm -rf %{buildroot}%{pylibdir}/lib-tk
 #we already have a LICENSE file elsewhere
 rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 
+# Python should own /usr/lib/python2.x on 64-bit machines
+%if "%{_lib}" == "lib64"
+install -d %{buildroot}/%{_prefix}/lib/python%{pybasever}/site-packages
+%endif
+
 #TODO:
 #rpmlint warnings (executable bits), e.g.:
 #find -name '*.py' -exec if doesn't have +x perm && if has shebang: remove shebang
@@ -399,6 +417,10 @@ rm -f %{buildroot}%{pylibdir}/LICENSE.txt
 %{dynload_dir}/unicodedata.so
 %{dynload_dir}/zlib.so
 %dir %{pylibdir}/site-packages
+%if "%{_lib}" == "lib64"
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/site-packages
+%endif
 %{pylibdir}/site-packages/README
 %{pylibdir}/*.py*
 %dir %{pylibdir}/bsddb

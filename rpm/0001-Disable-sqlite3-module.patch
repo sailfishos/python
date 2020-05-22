@@ -1,17 +1,17 @@
-From 352ecea75591ccf14fbc5c9396f8fa322b43250d Mon Sep 17 00:00:00 2001
+From 56be368ad673070a31b6a706c4ca64da1b3ab117 Mon Sep 17 00:00:00 2001
 From: Niels Breet <niels.breet@jolla.com>
 Date: Tue, 6 Aug 2019 14:03:01 +0300
-Subject: [PATCH] Disable sqlite3 module
+Subject: [PATCH 1/4] Disable sqlite3 module
 
 ---
  Makefile.pre.in | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 9297e7f..c8dd856 100644
+index 2a14f33..ed547b3 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -1060,7 +1060,6 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
+@@ -1066,7 +1066,6 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
  		email email/mime email/test email/test/data \
  		ensurepip ensurepip/_bundled \
  		json json/tests \
@@ -20,5 +20,5 @@ index 9297e7f..c8dd856 100644
  		lib2to3 lib2to3/fixes lib2to3/pgen2 lib2to3/tests \
  		lib2to3/tests/data lib2to3/tests/data/fixers lib2to3/tests/data/fixers/myfixes \
 -- 
-1.9.1
+2.7.4
 

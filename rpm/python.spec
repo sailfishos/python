@@ -112,10 +112,16 @@ Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 # The RPM related dependencies bring nothing to a non-RPM Python developer
 # But we want them when packages BuildRequire python2-devel
+%if 0%{?no_rpm_conditional_requires}
+Requires:    python-rpm-macros
+Requires:    python2-rpm-macros
+Requires:    python3-rpm-generators
+%else
 Requires:   (python-rpm-macros if rpm-build)
 Requires:   (python2-rpm-macros if rpm-build)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1410631
 Requires:   (python3-rpm-generators if rpm-build)
+%endif
 Provides:   python2-devel = %{version}
 Obsoletes:  python2-devel < %{version}
 

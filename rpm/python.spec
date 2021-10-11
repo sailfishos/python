@@ -29,6 +29,7 @@ Patch7:     0004-Fix-test-installation-for-multilib.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(libcrypt)
 BuildRequires:  bzip2
 BuildRequires:  bzip2-devel
 BuildRequires:  db4-devel >= 4.8
@@ -110,6 +111,7 @@ color editor (pynche), and a python gettext program (pygettext.py).
 Summary:    The libraries and header files needed for Python development
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
+Requires:   pkgconfig(libcrypt)
 # The RPM related dependencies bring nothing to a non-RPM Python developer
 # But we want them when packages BuildRequire python2-devel
 %if 0%{?no_rpm_conditional_requires}

@@ -28,7 +28,7 @@ Patch6:     0003-Fix-sysconfig-for-multilib.patch
 Patch7:     0004-Fix-test-installation-for-multilib.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
-BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(openssl) < 3
 BuildRequires:  pkgconfig(libcrypt)
 BuildRequires:  bzip2
 BuildRequires:  bzip2-devel

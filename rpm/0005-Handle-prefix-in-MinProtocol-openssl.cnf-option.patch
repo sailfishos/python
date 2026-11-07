@@ -1,0 +1,26 @@
+From 9804768b99f63fcea9e521baf223d18d87214337 Mon Sep 17 00:00:00 2001
+From: Pami Ketolainen <pami.ketolainen@jolla.com>
+Date: Sat, 7 Nov 2026 02:05:06 +0200
+Subject: [PATCH] Handle prefix in MinProtocol openssl.cnf option
+
+The config uses TLS.MinProtocol and DTLS.MinProtocol.
+---
+ Lib/test/test_ssl.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Lib/test/test_ssl.py b/Lib/test/test_ssl.py
+index ef2e59c1d15..eaaf3c25714 100644
+--- a/Lib/test/test_ssl.py
++++ b/Lib/test/test_ssl.py
+@@ -174,7 +174,7 @@ def skip_if_openssl_cnf_minprotocol_gt_tls1(func):
+         try:
+             with open(openssl_cnf, "r") as config:
+                 for line in config:
+-                    match = re.match(r"MinProtocol\s*=\s*(TLSv\d+\S*)", line)
++                    match = re.match(r"[^# ]*MinProtocol\s*=\s*(TLSv\d+\S*)", line)
+                     if match:
+                         tls_ver = match.group(1)
+                         if tls_ver > "TLSv1":
+-- 
+2.56.0
+

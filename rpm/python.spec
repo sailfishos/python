@@ -26,6 +26,7 @@ Patch4:     0001-Disable-sqlite3-module.patch
 Patch5:     0002-Fix-lib64-for-multilib.patch
 Patch6:     0003-Fix-sysconfig-for-multilib.patch
 Patch7:     0004-Fix-test-installation-for-multilib.patch
+Patch8:     0005-Handle-prefix-in-MinProtocol-openssl.cnf-option.patch
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(openssl) < 3
@@ -164,6 +165,9 @@ This package provides man pages for %{name}.
 %patch6 -p1
 %patch7 -p1
 %endif
+
+# fix ssl test TLS version check
+%patch8 -p1
 
 %build
 export CC=gcc
